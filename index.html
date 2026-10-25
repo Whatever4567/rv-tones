@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RV//TONES — Beyond the Matrix · Declassified Remote Viewing Frequencies</title>
+<style>
+:root{--g:#00ff66;--g2:#00cc55;--dim:#0a3;--bg:#020804;--panel:rgba(3,18,8,.86);--txt:#c8ffd8}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--txt);font-family:"Courier New",ui-monospace,Menlo,Consolas,monospace}
+#rain{position:fixed;inset:0;z-index:0;opacity:.35}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:20px 16px 140px}
+a{color:var(--g)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--dim);padding-bottom:14px}
+.logo{font-size:28px;font-weight:bold;color:var(--g);text-shadow:0 0 8px var(--g);letter-spacing:2px}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.glitch::before{color:#f0f;left:2px;animation:gl 2.5s infinite linear alternate-reverse;clip-path:inset(0 0 60% 0)}
+.glitch::after{color:#0ff;left:-2px;animation:gl 3s infinite linear alternate;clip-path:inset(55% 0 0 0)}
+@keyframes gl{0%{transform:translate(0)}20%{transform:translate(-2px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,0)}80%{transform:translate(1px,1px)}100%{transform:translate(0)}}
+.stamp{border:2px solid var(--g);color:var(--g);padding:4px 10px;transform:rotate(-4deg);font-weight:bold;letter-spacing:2px;box-shadow:0 0 10px var(--dim) inset}
+.stamp s{color:#f55}
+.tag{color:#7fbf95;font-size:13px;margin:8px 0 0}
+.btn{background:transparent;border:1px solid var(--g);color:var(--g);padding:8px 14px;font:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-radius:3px;transition:.15s}
+.btn:hover{background:var(--g);color:#000;box-shadow:0 0 14px var(--g)}
+h2{color:var(--g);font-size:16px;letter-spacing:3px;margin:28px 0 10px}h2::before{content:"> "}
+.list{display:grid;gap:10px}
+.trk{display:grid;grid-template-columns:84px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid #0a3a1a;padding:10px;border-radius:4px;cursor:pointer;transition:.15s}
+.trk:hover,.trk.on{border-color:var(--g);box-shadow:0 0 12px rgba(0,255,102,.25)}
+.art{width:84px;height:84px;border-radius:3px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:5px;font-size:11px;font-weight:bold;color:#000}
+.art span{background:var(--g);padding:1px 4px}
+.art .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--g);background:rgba(0,0,0,.45);opacity:0;transition:.15s;text-shadow:0 0 8px var(--g)}
+.trk:hover .pl,.trk.on .pl{opacity:1}
+.tt{color:#eaffef;font-weight:bold}.code{color:var(--g);font-size:12px}
+.desc{font-size:13px;color:#8fcfa5;margin:4px 0}
+.freq{font-size:12px;color:#5f9}
+canvas.wf{width:100%;height:38px;display:block;margin-top:6px}
+.meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:12px;color:#7fbf95}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(0,10,4,.96);border-top:1px solid var(--g);box-shadow:0 -4px 20px rgba(0,255,102,.15);padding:10px 16px}
+.bar .in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
+.ctr{display:flex;gap:6px}.ctr .btn{width:42px;justify-content:center;padding:8px 0}
+#big{width:100%;height:46px;cursor:pointer;display:block}
+.now{font-size:13px;display:flex;justify-content:space-between;color:#9fdfb5}
+.vol{display:flex;align-items:center;gap:6px;font-size:13px}
+input[type=range]{accent-color:var(--g)}
+.gen{background:var(--panel);border:1px solid #0a3a1a;padding:16px;border-radius:4px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.gen label{display:block;font-size:13px;margin-bottom:4px}.gen input[type=range]{width:100%}
+.gen .v{color:var(--g);font-weight:bold}
+.presets{display:flex;flex-wrap:wrap;gap:6px}.presets .btn{padding:5px 9px;font-size:12px}
+#scope{width:100%;height:110px;background:#000;border:1px solid #0a3a1a}
+footer{margin-top:34px;font-size:12px;color:#7fbf95;border-top:1px solid var(--dim);padding-top:12px;line-height:1.6}
+#intro{position:fixed;inset:0;z-index:20;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer}
+#intro pre{color:var(--g);font-size:15px;min-height:180px;width:min(620px,90vw);white-space:pre-wrap;text-shadow:0 0 6px var(--g)}
+#intro .ag{font-size:34px;font-weight:bold;color:var(--g);letter-spacing:6px;opacity:0;text-shadow:0 0 16px var(--g)}
+#intro .pills{opacity:0;margin-top:18px;display:flex;gap:16px}
+.red{border-color:#f44!important;color:#f66!important}.red:hover{background:#f44!important;color:#000!important}
+.cur{animation:bl 1s steps(1) infinite}@keyframes bl{50%{opacity:0}}
+@media(max-width:700px){.gen{grid-template-columns:1fr}.bar .in{grid-template-columns:1fr}.trk{grid-template-columns:64px 1fr}.art{width:64px;height:64px}.meta{grid-column:1/-1;flex-direction:row;justify-content:space-between}}
+</style></head><body>
+<canvas id="rain"></canvas>
+<div id="intro"><pre id="term"></pre><div class="ag glitch" data-t="ACCESS GRANTED" id="ag">ACCESS GRANTED</div>
+<div class="pills" id="pills"><button class="btn" id="green">💊 Green pill — enter</button><button class="btn red" id="redp">💊 Red pill — also enter</button></div></div>
+
+<div class="wrap">
+<header><div><div class="logo glitch" data-t="RV//TONES">RV//TONES</div>
+<div class="tag">Beyond-the-Matrix binaural beats, inspired by the <b>declassified</b> CIA Gateway Process &amp; Project Stargate files.</div></div>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="stamp"><s>TOP SECRET</s> DECLASSIFIED</div>
+<a class="btn" href="rv-tones-tracks.zip" download>⬇ Download all (ZIP)</a></div></header>
+
+<h2>FREQUENCY ARCHIVE</h2>
+<div class="list" id="list"></div>
+
+<h2>LIVE TONE GENERATOR</h2>
+<div class="gen">
+<div>
+<label>Carrier frequency: <span class="v" id="cv">200</span> Hz</label><input type="range" id="car" min="60" max="500" step="1" value="200">
+<label style="margin-top:12px">Beat frequency (L/R difference): <span class="v" id="bv">10</span> Hz</label><input type="range" id="beat" min="0.5" max="45" step="0.01" value="10">
+<label style="margin-top:12px">Pink noise bed: <span class="v" id="nv">20</span>%</label><input type="range" id="noise" min="0" max="100" value="20">
+<label style="margin-top:12px">Generator volume: <span class="v" id="gv">40</span>%</label><input type="range" id="gvol" min="0" max="100" value="40">
+<div style="margin-top:14px;display:flex;gap:8px;align-items:center"><button class="btn" id="gplay">▶ Start generator</button><span id="band" class="freq"></span></div>
+</div>
+<div><div class="presets" id="presets"></div><canvas id="scope" style="margin-top:12px"></canvas>
+<div class="freq" style="margin-top:6px">Left: <span id="lf"></span> Hz · Right: <span id="rf"></span> Hz — headphones required for the binaural effect.</div></div>
+</div>
+
+<footer><b>Honest note // read me:</b> Everything here is a fun, playful project. Nothing on this site is classified. These are ordinary
+<b>binaural beats</b> (slightly different tones in each ear) generated in code, loosely inspired by <b>publicly declassified</b> documents —
+the 1983 CIA/US Army “Analysis and Assessment of Gateway Process” report by Lt. Col. Wayne McDonnell (Monroe Institute Hemi-Sync “Focus” levels) and
+the Project Stargate remote-viewing program (terminated 1995). The “Focus” tracks are stylised interpretations, not Monroe Institute recordings.
+Binaural beats have no proven remote-viewing or psychic effects; scientific evidence for any effect is mixed. Use headphones at low volume, for relaxation or
+experimentation only. Don't use while driving or operating machinery; skip if you have epilepsy or a seizure history.<br>
+Source: <a href="https://www.cia.gov/readingroom/docs/CIA-RDP96-00788R001700210016-5.pdf" target="_blank" rel="noopener">CIA Reading Room — Gateway Process (CIA-RDP96-00788R001700210016-5)</a></footer>
+</div>
+
+<div class="bar"><div class="in">
+<div class="ctr"><button class="btn" id="prev" title="Previous">⏮</button><button class="btn" id="pp" title="Play/Pause">▶</button><button class="btn" id="next" title="Next">⏭</button></div>
+<div><div class="now"><span id="nt">Select a frequency…</span><span id="tm">0:00 / 0:00</span></div><canvas id="big"></canvas></div>
+<div class="vol">🔊<input type="range" id="vol" min="0" max="1" step="0.01" value="0.7"></div>
+</div></div>
+<audio id="au" preload="metadata"></audio>
+<script src="tracks.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s), T=window.TRACKS||[], au=$('#au');
+// ---- Matrix rain
+const rc=$('#rain'),rx=rc.getContext('2d');let cols=[],fs=16;
+const chars='アカサタナハマヤラワ0123456789ΘΔΑΓ∞RVHZ<>/#';
+function rs(){rc.width=innerWidth;rc.height=innerHeight;cols=Array(Math.ceil(rc.width/fs)).fill(0).map(()=>Math.random()*-50)}
+rs();addEventListener('resize',rs);
+setInterval(()=>{rx.fillStyle='rgba(2,8,4,.08)';rx.fillRect(0,0,rc.width,rc.height);rx.font=fs+'px monospace';
+cols.forEach((y,i)=>{rx.fillStyle=Math.random()<.03?'#cfffdf':'#00ff66';rx.fillText(chars[Math.random()*chars.length|0],i*fs,y*fs);
+cols[i]=y*fs>rc.height&&Math.random()>.975?0:y+1})},50);
+// ---- Intro
+const lines=['> CONNECTING TO FT. MEADE ARCHIVE ...... OK','> LOADING GATEWAY_PROCESS_1983.PDF ..... OK','> DECRYPTING STARGATE COORDINATES ...... OK',
+'> CALIBRATING HEMI-SYNC OSCILLATORS ... OK','> USER CLEARANCE: CURIOUS HUMAN (LEVEL ∞)','> WARNING: fun ahead. no actual secrets. headphones on.'];
+const term=$('#term');let li=0,ci=0,done=false;
+function type(){if(done)return;if(li>=lines.length){finish();return}
+ if(ci<=lines[li].length){term.innerHTML=lines.slice(0,li).join('\n')+(li?'\n':'')+lines[li].slice(0,ci)+'<span class="cur">█</span>';ci++;setTimeout(type,14)}
+ else{li++;ci=0;setTimeout(type,140)}}
+function finish(){done=true;term.textContent=lines.join('\n');$('#ag').style.transition='opacity .4s';$('#ag').style.opacity=1;$('#pills').style.transition='opacity .6s';$('#pills').style.opacity=1}
+function close(){const i=$('#intro');i.style.transition='opacity .5s';i.style.opacity=0;setTimeout(()=>i.remove(),500)}
+type();$('#intro').addEventListener('click',e=>{if(!done)finish();else if(e.target.tagName==='BUTTON')close()});
+$('#green').onclick=close;$('#redp').onclick=close;
+// ---- Track list
+const fmt=s=>{s=Math.max(0,s|0);return (s/60|0)+':'+String(s%60).padStart(2,'0')};
+const mb=b=>(b/1048576).toFixed(1)+' MB';
+const band=b=>b<4?'Delta':b<8?'Theta':b<13?'Alpha':b<30?'Beta':'Gamma';
+function hue(i){return [140,160,120,180,100,200,150,130,170,110,90,190][i%12]}
+let cur=-1;const list=$('#list');
+T.forEach((t,i)=>{const d=document.createElement('div');d.className='trk';d.dataset.i=i;
+ const h=hue(i);
+ d.innerHTML=`<div class="art" style="background:radial-gradient(circle at 30% 30%,hsl(${h},100%,45%),hsl(${h},90%,8%) 70%),#000"><span>${t.code}</span><div class="pl">▶</div></div>
+ <div><div class="tt">${t.title}</div><div class="desc">${t.desc}</div>
+ <div class="freq">${t.layers.map(l=>`${l.carrier} Hz carrier · ${l.beat} Hz ${band(l.beat)}`).join(' &nbsp;+&nbsp; ')}</div><canvas class="wf"></canvas></div>
+ <div class="meta"><span>${fmt(t.duration)} · ${mb(t.size)}</span><a class="btn" href="${t.file}" download onclick="event.stopPropagation()">⬇ MP3</a></div>`;
+ d.onclick=()=>{i===cur?toggle():load(i,true)};list.appendChild(d)});
+function drawWf(c,peaks,prog){const r=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(!w)return;c.width=w*r;c.height=h*r;
+ const x=c.getContext('2d');x.scale(r,r);const n=peaks.length,bw=w/n;
+ for(let k=0;k<n;k++){const ph=Math.max(2,peaks[k]*h*.95);x.fillStyle=(k/n)<prog?'#00ff66':'#1d5a33';x.fillRect(k*bw,(h-ph)/2,Math.max(1,bw-1),ph)}}
+function drawAll(){document.querySelectorAll('.trk').forEach(d=>{const i=+d.dataset.i;drawWf(d.querySelector('.wf'),T[i].peaks,i===cur&&au.duration?au.currentTime/au.duration:0)});
+ drawWf($('#big'),cur>=0?T[cur].peaks:new Array(200).fill(.15),cur>=0&&au.duration?au.currentTime/au.duration:0)}
+addEventListener('resize',drawAll);
+function load(i,play){cur=(i+T.length)%T.length;const t=T[cur];au.src=t.file;$('#nt').textContent=`[${t.code}] ${t.title}`;
+ document.querySelectorAll('.trk').forEach(d=>d.classList.toggle('on',+d.dataset.i===cur));
+ if(play)au.play().catch(()=>{});drawAll()}
+function toggle(){if(cur<0)return load(0,true);au.paused?au.play():au.pause()}
+$('#pp').onclick=toggle;$('#next').onclick=()=>load(cur+1,true);$('#prev').onclick=()=>au.currentTime>3?au.currentTime=0:load(cur-1,true);
+au.onplay=au.onpause=()=>{$('#pp').textContent=au.paused?'▶':'⏸';document.querySelectorAll('.trk .pl').forEach((p,k)=>p.textContent=(k===cur&&!au.paused)?'⏸':'▶')};
+au.ontimeupdate=()=>{$('#tm').textContent=fmt(au.currentTime)+' / '+fmt(au.duration||T[cur].duration);drawAll()};
+au.onended=()=>load(cur+1,true);
+$('#big').onclick=e=>{if(cur<0)return;const r=e.target.getBoundingClientRect();au.currentTime=(e.clientX-r.left)/r.width*(au.duration||T[cur].duration)};
+$('#vol').oninput=e=>au.volume=+e.target.value;au.volume=.7;
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target.tagName!=='INPUT'){e.preventDefault();toggle()}});
+drawAll();
+// ---- Live generator
+let ac,oL,oR,ng,mg,an,gen=false;
+const P=[['Delta 2',100,2],['Theta 4',140,4],['Theta 6',160,6],['Schumann',136.1,7.83],['Alpha 10',200,10],['Beta 18',220,18],['Gamma 40',250,40],['Focus 10',100,4],['Focus 12',120,7],['Focus 15',100,3],['Focus 21',110,2],['Beyond Matrix',150,6]];
+P.forEach(p=>{const b=document.createElement('button');b.className='btn';b.textContent=p[0];b.onclick=()=>{$('#car').value=p[1];$('#beat').value=p[2];upd()};$('#presets').appendChild(b)});
+function upd(){const c=+$('#car').value,b=+$('#beat').value;$('#cv').textContent=c;$('#bv').textContent=b.toFixed(2);$('#nv').textContent=$('#noise').value;$('#gv').textContent=$('#gvol').value;
+ $('#lf').textContent=(c-b/2).toFixed(2);$('#rf').textContent=(c+b/2).toFixed(2);$('#band').textContent=band(b)+' band';
+ if(ac){const n=ac.currentTime;oL.frequency.setTargetAtTime(c-b/2,n,.05);oR.frequency.setTargetAtTime(c+b/2,n,.05);ng.gain.setTargetAtTime($('#noise').value/100*.5,n,.05);mg.gain.setTargetAtTime(gen?$('#gvol').value/100*.5:0,n,.1)}}
+['car','beat','noise','gvol'].forEach(id=>$('#'+id).oninput=upd);upd();
+function init(){ac=new (window.AudioContext||window.webkitAudioContext)();const m=ac.createChannelMerger(2);
+ oL=ac.createOscillator();oR=ac.createOscillator();const gl=ac.createGain(),gr=ac.createGain();gl.gain.value=gr.gain.value=.6;
+ oL.connect(gl).connect(m,0,0);oR.connect(gr).connect(m,0,1);
+ const len=ac.sampleRate*4,buf=ac.createBuffer(2,len,ac.sampleRate);
+ for(let ch=0;ch<2;ch++){const d=buf.getChannelData(ch);let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+  for(let i=0;i<len;i++){const w=Math.random()*2-1;b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926}}
+ const ns=ac.createBufferSource();ns.buffer=buf;ns.loop=true;ng=ac.createGain();ng.gain.value=0;
+ mg=ac.createGain();mg.gain.value=0;an=ac.createAnalyser();an.fftSize=2048;
+ ns.connect(ng).connect(mg);m.connect(mg);mg.connect(an).connect(ac.destination);oL.start();oR.start();ns.start();scope()}
+$('#gplay').onclick=()=>{if(!ac)init();ac.resume();gen=!gen;$('#gplay').textContent=gen?'⏸ Stop generator':'▶ Start generator';upd()};
+function scope(){const c=$('#scope'),x=c.getContext('2d'),d=new Float32Array(an.fftSize);
+ (function f(){requestAnimationFrame(f);c.width=c.clientWidth;c.height=c.clientHeight;an.getFloatTimeDomainData(d);
+ x.fillStyle='#000';x.fillRect(0,0,c.width,c.height);x.strokeStyle='#00ff66';x.shadowColor='#00ff66';x.shadowBlur=6;x.beginPath();
+ for(let i=0;i<d.length;i++){const X=i/d.length*c.width,Y=c.height/2-d[i]*c.height*.8;i?x.lineTo(X,Y):x.moveTo(X,Y)}x.stroke()})()}
+})();
+</script></body></html>
