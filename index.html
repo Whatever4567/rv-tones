@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RV//TONES — Beyond the Matrix · Declassified Remote Viewing Frequencies</title>
 <style>
 :root{--g:#00ff66;--g2:#00cc55;--dim:#0a3;--bg:#020804;--panel:rgba(3,18,8,.86);--txt:#c8ffd8}
@@ -34,7 +34,7 @@ canvas.wf{width:100%;height:38px;display:block;margin-top:6px}
 .meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:12px;color:#7fbf95}
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(0,10,4,.96);border-top:1px solid var(--g);box-shadow:0 -4px 20px rgba(0,255,102,.15);padding:10px 16px}
 .bar .in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
-.ctr{display:flex;gap:6px}.ctr .btn{width:42px;justify-content:center;padding:8px 0}
+.ctr{display:flex;gap:6px}#loop.on{background:var(--g);color:#000;box-shadow:0 0 12px var(--g)}#loop:not(.on){opacity:.55}.ctr .btn{width:42px;justify-content:center;padding:8px 0}
 #big{width:100%;height:46px;cursor:pointer;display:block}
 .now{font-size:13px;display:flex;justify-content:space-between;color:#9fdfb5}
 .vol{display:flex;align-items:center;gap:6px;font-size:13px}
@@ -73,7 +73,7 @@ footer{margin-top:34px;font-size:12px;color:#7fbf95;border-top:1px solid var(--d
 <label style="margin-top:12px">Beat frequency (L/R difference): <span class="v" id="bv">10</span> Hz</label><input type="range" id="beat" min="0.5" max="45" step="0.01" value="10">
 <label style="margin-top:12px">Pink noise bed: <span class="v" id="nv">20</span>%</label><input type="range" id="noise" min="0" max="100" value="20">
 <label style="margin-top:12px">Generator volume: <span class="v" id="gv">40</span>%</label><input type="range" id="gvol" min="0" max="100" value="40">
-<div style="margin-top:14px;display:flex;gap:8px;align-items:center"><button class="btn" id="gplay">▶ Start generator</button><span id="band" class="freq"></span></div>
+<div style="margin-top:14px;display:flex;gap:8px;align-items:center"><button class="btn" id="gplay">▶ Start generator</button><span class="freq">∞ runs endlessly until you stop it</span><span id="band" class="freq"></span></div>
 </div>
 <div><div class="presets" id="presets"></div><canvas id="scope" style="margin-top:12px"></canvas>
 <div class="freq" style="margin-top:6px">Left: <span id="lf"></span> Hz · Right: <span id="rf"></span> Hz — headphones required for the binaural effect.</div></div>
@@ -89,11 +89,11 @@ Source: <a href="https://www.cia.gov/readingroom/docs/CIA-RDP96-00788R0017002100
 </div>
 
 <div class="bar"><div class="in">
-<div class="ctr"><button class="btn" id="prev" title="Previous">⏮</button><button class="btn" id="pp" title="Play/Pause">▶</button><button class="btn" id="next" title="Next">⏭</button></div>
-<div><div class="now"><span id="nt">Select a frequency…</span><span id="tm">0:00 / 0:00</span></div><canvas id="big"></canvas></div>
+<div class="ctr"><button class="btn" id="prev" title="Previous">⏮</button><button class="btn" id="pp" title="Play/Pause">▶</button><button class="btn" id="next" title="Next">⏭</button><button class="btn on" id="loop" title="Endless loop: on" aria-pressed="true" style="width:auto;padding:8px 10px">∞ LOOP</button></div>
+<div><div class="now"><span id="nt">Select a frequency…</span><span id="tm">∞ endless loop</span></div><canvas id="big"></canvas></div>
 <div class="vol">🔊<input type="range" id="vol" min="0" max="1" step="0.01" value="0.7"></div>
 </div></div>
-<audio id="au" preload="metadata"></audio>
+<audio id="au" preload="none" loop></audio>
 <script src="tracks.js"></script>
 <script>
 (()=>{
@@ -128,25 +128,63 @@ T.forEach((t,i)=>{const d=document.createElement('div');d.className='trk';d.data
  d.innerHTML=`<div class="art" style="background:radial-gradient(circle at 30% 30%,hsl(${h},100%,45%),hsl(${h},90%,8%) 70%),#000"><span>${t.code}</span><div class="pl">▶</div></div>
  <div><div class="tt">${t.title}</div><div class="desc">${t.desc}</div>
  <div class="freq">${t.layers.map(l=>`${l.carrier} Hz carrier · ${l.beat} Hz ${band(l.beat)}`).join(' &nbsp;+&nbsp; ')}</div><canvas class="wf"></canvas></div>
- <div class="meta"><span>${fmt(t.duration)} · ${mb(t.size)}</span><a class="btn" href="${t.file}" download onclick="event.stopPropagation()">⬇ MP3</a></div>`;
+ <div class="meta"><span>∞ endless loop · ${mb(t.size)}</span><a class="btn" href="${t.file}" download onclick="event.stopPropagation()">⬇ MP3</a></div>`;
  d.onclick=()=>{i===cur?toggle():load(i,true)};list.appendChild(d)});
 function drawWf(c,peaks,prog){const r=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(!w)return;c.width=w*r;c.height=h*r;
  const x=c.getContext('2d');x.scale(r,r);const n=peaks.length,bw=w/n;
  for(let k=0;k<n;k++){const ph=Math.max(2,peaks[k]*h*.95);x.fillStyle=(k/n)<prog?'#00ff66':'#1d5a33';x.fillRect(k*bw,(h-ph)/2,Math.max(1,bw-1),ph)}}
-function drawAll(){document.querySelectorAll('.trk').forEach(d=>{const i=+d.dataset.i;drawWf(d.querySelector('.wf'),T[i].peaks,i===cur&&au.duration?au.currentTime/au.duration:0)});
- drawWf($('#big'),cur>=0?T[cur].peaks:new Array(200).fill(.15),cur>=0&&au.duration?au.currentTime/au.duration:0)}
+// ---- Player engine: Web Audio gapless loop (fallback: <audio loop> for file:// etc.)
+// Tracks are 150 s = 3 exact 50 s periods (whole cycles of every tone + circular noise),
+// so looping any 50 s-multiple window is sample-seamless. We loop 25 s -> 125 s, well inside the file,
+// which also skips any MP3 encoder padding at either end.
+let ctx=null,master=null;
+function getAC(){if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=+$('#vol').value;master.connect(ctx.destination)}return ctx}
+let looping=true,playing=false,src=null,tg=null,buf=null,bufId=null,useEl=location.protocol==='file:'; // file:// can't fetch(); use <audio loop> + phase-matched wrap
+let offset=0,startedAt=0,session=0,sessStart=0;const cache={};
+const LS=t=>Math.min(25,(t.period||50)/2), LE=t=>LS(t)+Math.floor(((t.duration||150)-2*LS(t))/(t.period||50))*(t.period||50);
+function dur(){return buf?buf.duration:(au.duration||(cur>=0?T[cur].duration:0))}
+function pos(){if(useEl)return au.currentTime;if(!playing)return offset;let p=offset+(ctx.currentTime-startedAt);
+ const t=T[cur],ls=LS(t),le=LE(t);if(looping&&p>le)p=ls+(p-ls)%(le-ls);return Math.min(p,dur())}
+function sess(){return session+(isPlaying()?(performance.now()-sessStart)/1000:0)}
+async function getBuf(t){if(cache[t.id])return cache[t.id];const r=await fetch(t.file);if(!r.ok)throw Error('HTTP '+r.status);
+ const ab=await r.arrayBuffer();const b=await new Promise((ok,no)=>getAC().decodeAudioData(ab,ok,no));
+ for(const k in cache)delete cache[k];cache[t.id]=b;return b}   // keep only one decoded track (~50 MB) in memory
+function stopSrc(fade){if(!src)return;const s0=src,g0=tg,n=ctx.currentTime;s0.onended=null;
+ g0.gain.cancelScheduledValues(n);g0.gain.setValueAtTime(g0.gain.value,n);g0.gain.linearRampToValueAtTime(0,n+fade);s0.stop(n+fade+.02);src=tg=null}
+function startSrc(at,fadeIn){const t=T[cur],n=ctx.currentTime;src=ctx.createBufferSource();src.buffer=buf;
+ src.loop=looping;src.loopStart=LS(t);src.loopEnd=LE(t);tg=ctx.createGain();tg.gain.setValueAtTime(0,n);tg.gain.linearRampToValueAtTime(1,n+fadeIn);
+ src.connect(tg).connect(master);src.start(n,at);offset=at;startedAt=n;
+ const me=src;src.onended=()=>{if(me===src&&!looping){playing=false;src=null;load(cur+1,true)}}}
+async function play(){if(cur<0)return;const t=T[cur];if(useEl){au.loop=looping;au.volume=+$('#vol').value;return au.play().catch(()=>{})}
+ try{getAC();await ctx.resume();if(bufId!==t.id){const id=t.id,b=await getBuf(t);if(T[cur].id!==id)return;buf=b;bufId=id}
+  if(playing)return;if(offset>=dur()-.05)offset=0;startSrc(offset,1.5);playing=true;sessStart=performance.now();ui()}
+ catch(e){console.warn('Web Audio unavailable, using <audio> loop fallback:',e.message);useEl=true;au.src=t.file;au.currentTime=offset;play()}}
+function pause(){if(useEl){au.pause();return}if(!playing)return;offset=pos();session=sess();playing=false;stopSrc(.4);ui()}
+function seek(p){p=Math.max(0,Math.min(p,dur()-.1));if(looping&&cur>=0){const t=T[cur],ls=LS(t),le=LE(t);if(p>le)p=ls+(p-ls)%(le-ls)} // identical phase, keeps playhead inside the loop window
+ if(useEl){au.currentTime=p;return}if(playing){stopSrc(.08);startSrc(p,.12)}else offset=p;drawAll()}
+function isPlaying(){return useEl?!au.paused:playing}
+function drawAll(){const pr=cur>=0&&dur()?pos()/dur():0;document.querySelectorAll('.trk').forEach(d=>{const i=+d.dataset.i;drawWf(d.querySelector('.wf'),T[i].peaks,i===cur?pr:0)});
+ drawWf($('#big'),cur>=0?T[cur].peaks:new Array(200).fill(.15),pr)}
 addEventListener('resize',drawAll);
-function load(i,play){cur=(i+T.length)%T.length;const t=T[cur];au.src=t.file;$('#nt').textContent=`[${t.code}] ${t.title}`;
- document.querySelectorAll('.trk').forEach(d=>d.classList.toggle('on',+d.dataset.i===cur));
- if(play)au.play().catch(()=>{});drawAll()}
-function toggle(){if(cur<0)return load(0,true);au.paused?au.play():au.pause()}
-$('#pp').onclick=toggle;$('#next').onclick=()=>load(cur+1,true);$('#prev').onclick=()=>au.currentTime>3?au.currentTime=0:load(cur-1,true);
-au.onplay=au.onpause=()=>{$('#pp').textContent=au.paused?'▶':'⏸';document.querySelectorAll('.trk .pl').forEach((p,k)=>p.textContent=(k===cur&&!au.paused)?'⏸':'▶')};
-au.ontimeupdate=()=>{$('#tm').textContent=fmt(au.currentTime)+' / '+fmt(au.duration||T[cur].duration);drawAll()};
-au.onended=()=>load(cur+1,true);
-$('#big').onclick=e=>{if(cur<0)return;const r=e.target.getBoundingClientRect();au.currentTime=(e.clientX-r.left)/r.width*(au.duration||T[cur].duration)};
-$('#vol').oninput=e=>au.volume=+e.target.value;au.volume=.7;
+function load(i,go){const was=isPlaying();if(src)stopSrc(.3);playing=false;au.pause();
+ cur=(i+T.length)%T.length;const t=T[cur];offset=0;session=0;buf=null;bufId=null;if(useEl)au.src=t.file;
+ $('#nt').textContent=`[${t.code}] ${t.title}`;document.querySelectorAll('.trk').forEach(d=>d.classList.toggle('on',+d.dataset.i===cur));
+ ui();drawAll();if(go||was)play()}
+function toggle(){if(cur<0)return load(0,true);isPlaying()?pause():play()}
+function setLoop(on){if(!useEl&&playing){offset=pos();startedAt=ctx.currentTime}looping=on;if(src)src.loop=on;au.loop=on;
+ const b=$('#loop');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.title='Endless loop: '+(on?'on':'off — plays once, then next track');ui()}
+function ui(){const p=isPlaying();$('#pp').textContent=p?'⏸':'▶';document.querySelectorAll('.trk .pl').forEach((e,k)=>e.textContent=(k===cur&&p)?'⏸':'▶');tick()}
+function tick(){if(cur<0)return;const s=sess();
+ $('#tm').textContent=looping?`∞ LOOP · session ${fmt(s)}`:`${fmt(pos())} / ${fmt(dur())}`}
+$('#pp').onclick=toggle;$('#next').onclick=()=>load(cur+1,true);$('#prev').onclick=()=>(looping?sess():pos())>3?(session=0,sessStart=performance.now(),seek(0)):load(cur-1,true);
+$('#loop').onclick=()=>setLoop(!looping);
+au.onplay=()=>{sessStart=performance.now();ui()};au.onpause=()=>{session+=(performance.now()-sessStart)/1000;ui()};au.onended=()=>{if(!looping)load(cur+1,true)};
+setInterval(()=>{if(!isPlaying())return;if(useEl&&looping&&cur>=0){const t=T[cur];if(au.currentTime>LE(t))au.currentTime-=LE(t)-LS(t)} // same phase: content is periodic
+ tick();drawAll()},250);
+$('#big').onclick=e=>{if(cur<0)return;const r=e.target.getBoundingClientRect();seek((e.clientX-r.left)/r.width*dur())};
+$('#vol').oninput=e=>{const v=+e.target.value;au.volume=v;if(master)master.gain.setTargetAtTime(v,ctx.currentTime,.05)};au.volume=.7;
 document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target.tagName!=='INPUT'){e.preventDefault();toggle()}});
+window.RV={pos,sess,dur,get looping(){return looping},get playing(){return isPlaying()},get src(){return src},get engine(){return useEl?'audio-element':'webaudio'}};
 drawAll();
 // ---- Live generator
 let ac,oL,oR,ng,mg,an,gen=false;
@@ -156,7 +194,7 @@ function upd(){const c=+$('#car').value,b=+$('#beat').value;$('#cv').textContent
  $('#lf').textContent=(c-b/2).toFixed(2);$('#rf').textContent=(c+b/2).toFixed(2);$('#band').textContent=band(b)+' band';
  if(ac){const n=ac.currentTime;oL.frequency.setTargetAtTime(c-b/2,n,.05);oR.frequency.setTargetAtTime(c+b/2,n,.05);ng.gain.setTargetAtTime($('#noise').value/100*.5,n,.05);mg.gain.setTargetAtTime(gen?$('#gvol').value/100*.5:0,n,.1)}}
 ['car','beat','noise','gvol'].forEach(id=>$('#'+id).oninput=upd);upd();
-function init(){ac=new (window.AudioContext||window.webkitAudioContext)();const m=ac.createChannelMerger(2);
+function init(){ac=getAC();const m=ac.createChannelMerger(2);
  oL=ac.createOscillator();oR=ac.createOscillator();const gl=ac.createGain(),gr=ac.createGain();gl.gain.value=gr.gain.value=.6;
  oL.connect(gl).connect(m,0,0);oR.connect(gr).connect(m,0,1);
  const len=ac.sampleRate*4,buf=ac.createBuffer(2,len,ac.sampleRate);
@@ -164,7 +202,7 @@ function init(){ac=new (window.AudioContext||window.webkitAudioContext)();const 
   for(let i=0;i<len;i++){const w=Math.random()*2-1;b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926}}
  const ns=ac.createBufferSource();ns.buffer=buf;ns.loop=true;ng=ac.createGain();ng.gain.value=0;
  mg=ac.createGain();mg.gain.value=0;an=ac.createAnalyser();an.fftSize=2048;
- ns.connect(ng).connect(mg);m.connect(mg);mg.connect(an).connect(ac.destination);oL.start();oR.start();ns.start();scope()}
+ ns.connect(ng).connect(mg);m.connect(mg);mg.connect(an).connect(ac.destination); /* oscillators + looped noise run until the page closes: endless */oL.start();oR.start();ns.start();scope()}
 $('#gplay').onclick=()=>{if(!ac)init();ac.resume();gen=!gen;$('#gplay').textContent=gen?'⏸ Stop generator':'▶ Start generator';upd()};
 function scope(){const c=$('#scope'),x=c.getContext('2d'),d=new Float32Array(an.fftSize);
  (function f(){requestAnimationFrame(f);c.width=c.clientWidth;c.height=c.clientHeight;an.getFloatTimeDomainData(d);
